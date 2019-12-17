@@ -1,0 +1,15 @@
+<!-- Section Footer -->
+<footer id="footer" class="section">
+	<div class="container">
+
+        <br><br>
+        
+		<div class="row">
+			<div class="copyright col-md-12 col-sm-12">
+				{% set StartYear = 2019 %}
+				{{sitemeta.title}} | &copy; {{StartYear}}{% if "now"|date("Y") > StartYear %}{{ "-" ~ "now"|date("Y") }}{% endif %} {{sitemeta.domain}}
+			</div>
+		</div>
+
+	</div>
+<footer>

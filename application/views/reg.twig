@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<title>{{sitemeta.title}} – Registration</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="{{sitemeta.descr}}">
+	<meta name="keywords" content="">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+	<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" type="text/javascript"></script>
+
+	<!--[if lt IE 9]><script src="/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- link rel="shortcut icon" href="/assets/images/favicon.png" -->
+</head>
+
+<body>
+{% include 'metrika.twig' %}
+
+<div class="container">
+
+    <div class="pull-right">
+        <select class="form-control" id="lang-switcher">
+            <option value="ru"{% if lang == 'ru' %} selected{% endif %}>RU</option>
+            <option value="en"{% if lang == 'en' %} selected{% endif %}>EN</option>
+        </select>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Предварительная регистрация на конкурс Crypo Winners</h1>
+        <p>Заполните предварительную заявку для участия в конкурсе Crypo Winners, который пройдет в конце января-феврале 2020г.</p>
+        <p>Полные правила конкурса и условия участия будут опубликованы позднее в наших официальных каналах.</p>
+    </div>
+    
+    {% if errtext %}
+        <div class="alert alert-danger" role="alert">
+            {{errtext|raw}}
+        </div>
+    {% endif %}
+    
+    <form role="form" data-toggle="validator" method="POST" enctype="multipart/form-data" action="/reg">
+        <input type="hidden" name="{{csrf.name}}" value="{{csrf.hash}}">
+        <div class="form-group">
+            <label for="UserName" class="text-primary">Имя пользователя <small>(видно всем)</small></label>
+            <input type="text" class="form-control" id="UserName" name="username" value="{{setvalue.username}}" placeholder="Никнейм" minlength="{{regform.username.minlen}}" maxlength="{{regform.username.maxlen}}" pattern="{{regform.username.regexp}}" data-error="Слишком короткое имя" data-pattern-error="Недопустимые символы" data-remote-error="Это имя уже занято!" data-remote="/reg/check" required>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <label for="UserText" class="text-primary">Текст "обо мне" <small>(видно всем)</small></label>
+            <textarea class="form-control" id="UserText" name="aboutme" placeholder="Обо мне" rows="2" minlength="{{regform.aboutme.minlen}}" maxlength="{{regform.aboutme.maxlen}}" data-error="Слишком короткий текст" required>{{setvalue.aboutme}}</textarea>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <label for="UserPhoto" class="text-primary">Фото или аватара <small>(видно всем)</small></label>
+            <input type="file" id="UserPhoto" name="photo" required>
+            <div class="help-block with-errors"></div>
+            <p class="small text-primary">Изображение должно быть не более {{photolimits.max_size}}Кб и не превышать {{photolimits.max_width}}x{{photolimits.max_height}} пикселей.</p>
+        </div>
+        <div class="form-group">
+            <label for="UserEmail" class="text-muted">Укажите Email <small>(скрыт)</small></label>
+            <input type="email" class="form-control" id="UserEmail" name="email" value="{{setvalue.email}}" placeholder="Email" data-error="Введите корректный email" required>
+            <div class="help-block with-errors"></div>
+        </div>
+        <div class="form-group">
+            <label for="TelegramUser" class="text-muted">Телеграм юзернейм <small>(скрыт)</small></label>
+            <input type="text" class="form-control" id="TelegramUser" name="telegram" value="{{setvalue.telegram}}" placeholder="username" minlength="{{regform.telegram.minlen}}" maxlength="{{regform.telegram.maxlen}}" pattern="{{regform.telegram.regexp}}" data-error="Слишком короткое имя" data-pattern-error="Недопустимые символы или лишний знак '@' впереди" required>
+            <div class="help-block with-errors"></div>
+            <p>Подпишитесь на <a href="#">наш канал</a> (обязательно)</p>
+        </div>
+         <button type="submit" class="btn btn-default btn-lg">Отправить</button>
+    </form>    
+
+</div>
+
+{% include 'footer.twig' %}
+<!-- End of page -->
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Custom scripts -->
+<script src="/assets/js/langswitcher.min.js" type="text/javascript"></script>
+
+{% include 'ie10bugfix.twig' %}
+
+</body>
+</html>
