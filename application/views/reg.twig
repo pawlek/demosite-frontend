@@ -70,6 +70,17 @@
             <div class="help-block with-errors"></div>
             <p class="small text-primary">Изображение должно быть не более {{photolimits.max_size}}Кб и не превышать {{photolimits.max_width}}x{{photolimits.max_height}} пикселей.</p>
         </div>
+        <p class="text-primary"><strong>Ваш пол <small>(видно всем)</small></strong></p>
+        <label class="radio-inline">
+            <input type="radio" name="sex" value="1" required> М
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" value="0" required> Ж
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" value="-1" required> Другой
+        </label>
+        <br><br>
         <div class="form-group">
             <label for="UserEmail" class="text-muted">Укажите Email <small>(скрыт)</small></label>
             <input type="email" class="form-control" id="UserEmail" name="email" value="{{setvalue.email}}" placeholder="Email" data-error="Введите корректный email" required>
